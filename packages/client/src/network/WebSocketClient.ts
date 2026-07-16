@@ -5,7 +5,7 @@
  * 参见 docs/data/api-interfaces.md §2.2
  */
 
-export type MessageType = 'auth' | 'BattleStart' | 'BattleInit' | 'BattleAction' | 'BattleResult' | 'Notification';
+export type MessageType = 'auth' | 'auth_success' | 'auth_error' | 'BattleStart' | 'BattleInit' | 'BattleAction' | 'BattleResult' | 'Notification' | 'error';
 
 export interface WebSocketMessage {
   type: MessageType;

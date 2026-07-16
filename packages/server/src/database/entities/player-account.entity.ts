@@ -14,6 +14,9 @@ export class PlayerAccount {
   @Column({ name: 'open_id', type: 'varchar', length: 128, nullable: true })
   openId: string;
 
+  @Column({ name: 'device_id', type: 'varchar', length: 128, nullable: true, unique: true })
+  deviceId: string;
+
   @Column({ type: 'varchar', length: 32, default: 'guest' })
   platform: string;
 

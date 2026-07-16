@@ -4,8 +4,8 @@
  * 接口定义参见 docs/data/api-interfaces.md §3.2
  */
 
-import { Controller, Get, Post, Body, Req, HttpCode, HttpStatus, UseGuards } from '@nestjs/common';
-import { IsString, IsNotEmpty, MinLength, MaxLength } from 'class-validator';
+import { Controller, Get, Post, Body, Req, Query, HttpCode, HttpStatus, UseGuards } from '@nestjs/common';
+import { IsString, IsNotEmpty, MinLength, MaxLength, IsOptional, IsInt, Min } from 'class-validator';
 import { ProfileService } from './profile.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
@@ -37,10 +37,16 @@ export class ProfileController {
     return this.profileService.updateNickname(playerId, dto.nickname);
   }
 
-  /** 获取卡牌列表 */
+  /** 获取卡牌列表（支持分页） */
   @Get('inventory')
-  async getInventory(@Req() req: any) {
+  async getInventory(
+    @Req() req: any,
+    @Query('page') page?: string,
+    @Query('page_size') pageSize?: string,
+  ) {
     const playerId = req.user?.sub;
-    return this.profileService.getInventory(playerId);
+    const pageNum = page ? Math.max(1, parseInt(page, 10)) : 1;
+    const size = pageSize ? Math.min(100, Math.max(1, parseInt(pageSize, 10))) : 50;
+    return this.profileService.getInventory(playerId, pageNum, size);
   }
 }
