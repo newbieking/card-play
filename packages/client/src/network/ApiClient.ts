@@ -5,6 +5,8 @@
  * 参见 docs/data/api-interfaces.md §二
  */
 
+import { CLIENT_VERSION } from '../constants';
+
 export interface ApiResponse<T = any> {
   code: number;
   msg?: string;
@@ -70,7 +72,7 @@ export class ApiClient {
     return this.post('/account/guest_login', {
       device_id: deviceId,
       platform: 'guest',
-      client_version: '0.1.0',
+      client_version: CLIENT_VERSION,
     });
   }
 

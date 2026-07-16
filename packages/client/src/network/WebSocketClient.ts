@@ -5,7 +5,7 @@
  * 参见 docs/data/api-interfaces.md §2.2
  */
 
-export type MessageType = 'BattleStart' | 'BattleInit' | 'BattleAction' | 'BattleResult' | 'Notification';
+export type MessageType = 'auth' | 'BattleStart' | 'BattleInit' | 'BattleAction' | 'BattleResult' | 'Notification';
 
 export interface WebSocketMessage {
   type: MessageType;
@@ -34,11 +34,14 @@ export class WebSocketClient {
 
   /** 连接 WebSocket */
   connect(token: string) {
-    this.ws = new WebSocket(`${this.url}?token=${token}`);
+    // Token 通过首条消息传递，而非 URL 参数（避免日志/代理记录敏感信息）
+    this.ws = new WebSocket(this.url);
 
     this.ws.onopen = () => {
       console.log('🔗 WebSocket connected');
-      this.reconnectAttempts = 0; // 重置重连计数
+      this.reconnectAttempts = 0;
+      // 连接成功后立即发送认证消息
+      this.send('auth', { token });
     };
 
     this.ws.onmessage = (event) => {
