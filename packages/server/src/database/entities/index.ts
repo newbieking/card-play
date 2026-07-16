@@ -11,6 +11,7 @@ export { GachaPityCounter } from './gacha-pity-counter.entity';
 export { AdventureProgress } from './adventure-progress.entity';
 export { QuestProgress } from './quest-progress.entity';
 export { ArenaData } from './arena-data.entity';
+export { BattleRecord } from './battle-record.entity';
 
 /** 所有实体列表（用于 TypeORM 配置） */
 export const entities = [
@@ -23,4 +24,5 @@ export const entities = [
   AdventureProgress,
   QuestProgress,
   ArenaData,
+  BattleRecord,
 ];

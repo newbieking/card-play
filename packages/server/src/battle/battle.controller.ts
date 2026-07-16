@@ -32,4 +32,12 @@ export class BattleController {
     const playerId = req.user?.sub;
     return this.battleService.startBattle(playerId, dto.formation);
   }
+
+  /** 执行战斗（自动战斗结算） */
+  @Post('execute')
+  @HttpCode(HttpStatus.OK)
+  async executeBattle(@Req() req: any, @Body() body: { battle_id: string }) {
+    const playerId = req.user?.sub;
+    return this.battleService.executeBattle(body.battle_id, playerId);
+  }
 }

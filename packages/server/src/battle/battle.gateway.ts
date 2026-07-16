@@ -126,16 +126,20 @@ export class BattleGateway implements OnGatewayConnection, OnGatewayDisconnect {
       return;
     }
 
-    // TODO: 验证 battle_id 属于该玩家
-    // TODO: 执行战斗逻辑并返回结果
+    try {
+      // 收集玩家操作（简化：直接执行战斗）
+      const result = await this.battleService.executeBattle(
+        data.battle_id,
+        client.playerId,
+      );
 
-    client.emit('BattleResult', {
-      battle_id: data.battle_id,
-      winner: 'player',
-      frames: [],
-      final_state: { win: true, player_hp: [], enemy_hp: [] },
-      rewards: {},
-    });
+      client.emit('BattleResult', result.data);
+    } catch (error) {
+      client.emit('error', {
+        code: error.code || 5000,
+        msg: error.message || 'battle_error',
+      });
+    }
   }
 
   /** 发送通知给指定玩家（所有设备） */
