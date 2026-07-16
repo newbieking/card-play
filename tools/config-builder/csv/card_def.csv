@@ -1,0 +1,13 @@
+# 卡牌定义配置表
+# 参见 docs/data/config-tables.md §3.1
+id,name,rarity,class,element,max_star,base_hp,base_atk,base_matk,base_def,base_mdef,base_spd,base_crit,base_crit_dmg,base_lifesteal
+iron_guardian,铁卫守卫,rare,warrior,nature,5,1200,180,20,200,80,45,0.05,1.5,0
+frost_knight,冰霜骑士,epic,warrior,ice,7,1000,250,30,180,100,55,0.08,1.5,0
+frost_queen,冰霜女王,legendary,mage,ice,10,800,30,320,100,160,60,0.10,1.5,0
+fire_oracle,火焰先知,epic,mage,fire,7,750,25,290,90,140,65,0.12,1.5,0
+shadow_weaver,暗影编织者,epic,warlock,dark,7,900,20,260,110,150,58,0.08,1.5,0
+poison_witch,毒雾女巫,rare,warlock,nature,5,850,15,200,100,130,52,0.06,1.5,0
+thunder_ranger,雷霆游侠,epic,archer,thunder,7,700,280,10,90,80,80,0.18,1.5,0
+wind_scout,风行斥候,rare,archer,nature,5,650,200,10,80,70,75,0.15,1.5,0
+light_oracle,圣光先知,legendary,priest,light,10,1100,20,240,150,200,50,0.05,1.5,0
+nature_sage,自然贤者,rare,priest,nature,5,950,15,180,130,170,48,0.04,1.5,0
