@@ -19,12 +19,15 @@ docs/
 │   └── pvp-arena.md           ← PVP 竞技场
 ├── progression/               ← 养成系统
 │   ├── progression-tables.md  ← 升星数值表
-│   └── quest-system.md        ← 任务与体力
+│   ├── quest-system.md        ← 任务与体力
+│   └── tutorial-design.md     ← 新手引导教学
 ├── data/                      ← 数据与配置
 │   ├── data-model.md          ← 数据库设计
 │   ├── config-tables.md       ← 配置表 Schema
 │   ├── api-interfaces.md      ← API 接口清单与错误码
-│   └── gacha-rng.md           ← 抽卡 RNG 算法
+│   ├── gacha-rng.md           ← 抽卡 RNG 算法
+│   ├── sample-cards.md        ← 示例卡牌数值
+│   └── fixed-point-spec.md    ← 定点数实现规范
 └── art/                       ← 美术规范
     └── design.md              ← 美术素材规范
 ```
