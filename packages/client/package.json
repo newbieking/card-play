@@ -1,0 +1,17 @@
+{
+  "name": "@cardplay/client",
+  "version": "0.1.0",
+  "description": "卡牌游戏客户端 - Cocos Creator 3.x",
+  "private": true,
+  "scripts": {
+    "build": "echo 'Use Cocos Creator to build'",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@cardplay/shared": "workspace:*",
+    "@cardplay/battle-engine": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.0"
+  }
+}
