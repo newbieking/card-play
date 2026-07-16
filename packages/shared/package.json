@@ -1,0 +1,14 @@
+{
+  "name": "@cardplay/shared",
+  "version": "0.1.0",
+  "description": "卡牌游戏共享类型定义与配置表 Schema",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.0"
+  }
+}
