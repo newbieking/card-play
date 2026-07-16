@@ -5,7 +5,7 @@
  */
 
 import { Controller, Get, Post, Body, Req, HttpCode, HttpStatus, UseGuards } from '@nestjs/common';
-import { IsString, IsNotEmpty, IsInt, Min, Max, IsArray, ValidateNested, IsIn } from 'class-validator';
+import { IsString, IsNotEmpty, IsInt, Min, Max, IsArray, ValidateNested, IsIn, IsOptional } from 'class-validator';
 import { Type } from 'class-transformer';
 import { CardService } from './card.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
@@ -48,12 +48,19 @@ class FormationPositionDto {
 
 class SetFormationDto {
   @IsString()
+  @IsOptional()
+  formationId?: string;
+
+  @IsString()
   name: string;
 
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => FormationPositionDto)
   positions: FormationPositionDto[];
+
+  @IsOptional()
+  isDefault?: boolean;
 }
 
 @UseGuards(JwtAuthGuard)

@@ -4,7 +4,7 @@
  * 对应 docs/data/data-model.md §3.2
  */
 
-import { Entity, PrimaryColumn, Column, UpdateDateColumn } from 'typeorm';
+import { Entity, PrimaryColumn, Column, UpdateDateColumn, VersionColumn } from 'typeorm';
 
 @Entity('player_resource')
 export class PlayerResource {
@@ -37,7 +37,10 @@ export class PlayerResource {
   @Column({ name: 'skill_book', type: 'int', default: 0 })
   skillBook: number;
 
-  @Column({ type: 'int', default: 1, comment: '乐观锁版本号' })
+  @Column({ name: 'fragments', type: 'int', default: 0, comment: '通用碎片（抽卡重复卡转化）' })
+  fragments: number;
+
+  @VersionColumn({ type: 'int', default: 1, comment: '乐观锁版本号' })
   version: number;
 
   @UpdateDateColumn({ name: 'updated_at' })
