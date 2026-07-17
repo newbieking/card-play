@@ -1,0 +1,22 @@
+# 全局常量配置表
+# 参见 docs/data/config-tables.md §3.15
+key,value,type,description
+combat_def_curve_k,500,float,双曲线防御公式K值（500DEF=50%减伤）
+combat_elem_advantage_dmg,0.25,float,元素克制增伤倍率
+combat_elem_disadvantage_dmg,-0.15,float,元素被克制减伤倍率
+combat_dmg_random_min,0.95,float,伤害随机浮动下限
+combat_dmg_random_max,1.05,float,伤害随机浮动上限
+combat_min_dmg,1,int,保底伤害
+combat_rage_max,100,int,怒气上限
+combat_rage_per_hit,20,int,每次普攻获得怒气
+combat_rage_per_taken,10,int,每次受击获得怒气
+combat_rage_per_kill,30,int,每次击杀获得怒气
+combat_turn_timeout_s,30,int,半自动操作时限（秒）
+combat_max_turns,50,int,战斗回合上限
+pvp_defender_hp_bonus,0.10,float,PVP防守方HP加成
+pvp_win_streak_bonus_score,5,int,PVP连胜5+额外积分
+stamina_max_default,120,int,体力基础上限
+stamina_regen_sec,360,int,体力自然恢复间隔（秒）
+stamina_buy_base_price,50,int,体力购买基础价格（钻石）
+stamina_buy_daily_limit,5,int,每日体力购买次数上限
+stamina_buy_amount,60,int,单次购买获得体力

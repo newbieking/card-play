@@ -18,7 +18,7 @@ import { entities } from './entities';
       password: process.env.DB_PASSWORD || 'cardplay_dev',
       database: process.env.DB_NAME || 'cardplay',
       entities,
-      synchronize: process.env.NODE_ENV === 'development', // 仅开发环境自动同步
+      synchronize: false, // 始终使用 migration:run，不自动同步
       logging: process.env.NODE_ENV !== 'production',
     }),
   ],

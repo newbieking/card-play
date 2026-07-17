@@ -6,6 +6,7 @@
 
 import { Entity, PrimaryColumn, Column, UpdateDateColumn, VersionColumn } from 'typeorm';
 
+// 与 player_account 通过应用层软删除保持一致，不加 FK
 @Entity('player_resource')
 export class PlayerResource {
   @PrimaryColumn({ name: 'player_id', type: 'uuid' })

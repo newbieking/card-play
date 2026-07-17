@@ -4,10 +4,10 @@
  * 对应 docs/data/data-model.md §3.8
  */
 
-import { Entity, PrimaryColumn, Column, UpdateDateColumn, Index } from 'typeorm';
+import { Entity, PrimaryColumn, Column, UpdateDateColumn } from 'typeorm';
 
+// 主键 (player_id, pool_id) 已自动创建复合索引，无需额外 @Index
 @Entity('gacha_pity_counter')
-@Index('idx_pity_player_pool', ['playerId', 'poolId'])
 export class GachaPityCounter {
   @PrimaryColumn({ name: 'player_id', type: 'uuid' })
   playerId: string;

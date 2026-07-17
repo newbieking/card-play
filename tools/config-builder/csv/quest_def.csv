@@ -1,0 +1,20 @@
+# 任务定义配置表
+# 参见 docs/progression/quest-system.md §2.2
+id,name,type,condition_type,condition_param,target,reward,reset_cycle,sort_order
+daily_login,每日登录,daily,login,,1,"[{""item_type"":""gold"",""count"":5000}]",daily,1
+daily_clear_3,通关冒险3次,daily,clear_stage,,3,"[{""item_type"":""gold"",""count"":3000}]",daily,2
+daily_clear_6,通关冒险6次,daily,clear_stage,,6,"[{""item_type"":""diamond_free"",""count"":10}]",daily,3
+daily_draw_1,进行1次抽卡,daily,draw_card,,1,"[{""item_type"":""gold"",""count"":2000}]",daily,4
+daily_enhance_1,装备强化1次,daily,enhance_equip,,1,"[{""item_type"":""gold"",""count"":2000}]",daily,5
+daily_pvp_1,参加1场PVP,daily,pvp_play,,1,"[{""item_type"":""gold"",""count"":2000}]",daily,6
+daily_tower_1,爬塔1次,daily,tower_play,,1,"[{""item_type"":""gold"",""count"":2000}]",daily,7
+daily_spend_gold,消耗金币10000,daily,spend_gold,,10000,"[{""item_type"":""gold"",""count"":1000}]",daily,8
+daily_friend_gift,好友赠送1次,daily,friend_gift,,1,"[{""item_type"":""gold"",""count"":1000}]",daily,9
+weekly_clear_30,通关冒险30次,weekly,clear_stage,,30,"[{""item_type"":""diamond_free"",""count"":100},{""item_type"":""star_stone"",""count"":3}]",weekly,1
+weekly_draw_10,进行10次抽卡,weekly,draw_card,,10,"[{""item_type"":""gacha_ticket"",""count"":2}]",weekly,2
+weekly_enhance_20,装备强化20次,weekly,enhance_equip,,20,"[{""item_type"":""protect_ticket"",""count"":2}]",weekly,3
+weekly_pvp_20,参加PVP20场,weekly,pvp_play,,20,"[{""item_type"":""diamond_free"",""count"":150}]",weekly,4
+weekly_tower_30,爬塔达到30层,weekly,tower_floor,,30,"[{""item_type"":""star_stone"",""count"":5},{""item_type"":""skill_book"",""count"":5}]",weekly,5
+weekly_spend_gold,消耗金币100000,weekly,spend_gold,,100000,"[{""item_type"":""diamond_free"",""count"":50}]",weekly,6
+weekly_star_up_3,卡牌升星3次,weekly,star_up,,3,"[{""item_type"":""star_stone"",""count"":5}]",weekly,7
+weekly_login_5,登录5天,weekly,login,,5,"[{""item_type"":""diamond_free"",""count"":200}]",weekly,8

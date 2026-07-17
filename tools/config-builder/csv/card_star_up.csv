@@ -1,0 +1,26 @@
+# 升星消耗配置表
+# 参见 docs/progression/progression-tables.md §2.1
+card_rarity,from_star,to_star,frag_cost,gold_cost,star_stone_cost,breakthrough_req,unlock_skill,visual_change
+common,1,2,5,2000,0,,skill_lv2,none
+common,2,3,10,5000,0,,passive,none
+common,3,4,20,15000,0,,none,none
+common,4,5,40,50000,0,,none,border
+rare,1,2,10,5000,0,,skill_lv2,none
+rare,2,3,20,15000,0,,passive,none
+rare,3,4,30,50000,0,stage:elite_3,,"appearance"
+rare,4,5,50,150000,0,,ultimate,none
+epic,1,2,15,10000,0,,skill_lv2,none
+epic,2,3,25,30000,0,,passive,none
+epic,3,4,40,80000,0,stage:elite_5,,"appearance"
+epic,4,5,60,200000,0,,ultimate,none
+epic,5,6,80,500000,5,world_boss:fire_king,border,none
+epic,6,7,120,1000000,10,world_boss:fire_king,none,none
+legendary,1,2,10,5000,0,,skill_lv2,none
+legendary,2,3,20,15000,0,,passive,none
+legendary,3,4,30,50000,0,stage:frost_abyss,,"appearance"
+legendary,4,5,50,150000,0,,ultimate,none
+legendary,5,6,80,500000,5,world_boss:frost_queen,border,none
+legendary,6,7,120,1000000,10,world_boss:frost_queen,none,none
+legendary,7,8,180,2000000,20,world_boss:frost_queen,none,none
+legendary,8,9,250,5000000,30,world_boss:frost_queen,none,none
+legendary,9,10,500,10000000,50,world_boss:frost_queen,awaken,none
