@@ -222,4 +222,184 @@ describe('Battle Engine', () => {
     expect(result.winner).toBe('draw');
     expect(result.frames.length).toBe(50);
   });
+
+  it('should produce deterministic results with same seed', () => {
+    // 相同种子应产生完全相同的结果
+    // 注意：每次需要创建新的 CardState 对象（引擎会修改内部状态）
+    const createFreshCards = () => ({
+      player: [
+        createTestCard('p1', 'player', { atk: 300, def: 200, spd: 60 }),
+        createTestCard('p2', 'player', { atk: 250, def: 180, spd: 50 }),
+      ],
+      enemy: [
+        createTestCard('e1', 'enemy', { atk: 150, def: 100, spd: 40 }),
+        createTestCard('e2', 'enemy', { atk: 120, def: 80, spd: 35 }),
+      ],
+    });
+
+    const cards1 = createFreshCards();
+    const cards2 = createFreshCards();
+
+    const engine1 = new BattleEngine('test-003', 12345, 67890);
+    const engine2 = new BattleEngine('test-003', 12345, 67890);
+
+    engine1.loadFormation(cards1.player, cards1.enemy);
+    engine2.loadFormation(cards2.player, cards2.enemy);
+
+    const result1 = engine1.runBattle();
+    const result2 = engine2.runBattle();
+
+    expect(result1.winner).toBe(result2.winner);
+    expect(result1.frames.length).toBe(result2.frames.length);
+    expect(result1.playerHp).toEqual(result2.playerHp);
+    expect(result1.enemyHp).toEqual(result2.enemyHp);
+  });
+
+  it('should handle element advantage in battle', () => {
+    // 火元素 vs 冰元素：+25% 伤害
+    const engine = new BattleEngine('test-004', 12345, 67890);
+
+    const playerCards = [
+      createTestCard('p1', 'player', { atk: 500, element: 'fire', spd: 100 }),
+    ];
+
+    const enemyCards = [
+      createTestCard('e1', 'enemy', { hp: 300, maxHp: 300, element: 'ice', def: 100, spd: 10 }),
+    ];
+
+    engine.loadFormation(playerCards, enemyCards);
+    const result = engine.runBattle();
+
+    // 火克冰，应该能快速击杀
+    expect(result.winner).toBe('player');
+  });
+
+  it('should handle rage system correctly', () => {
+    const engine = new BattleEngine('test-005', 12345, 67890);
+
+    // 创建有技能的卡牌
+    const playerCards = [
+      createTestCard('p1', 'player', {
+        atk: 300,
+        spd: 100,
+        skill1RageCost: 40,
+        skill3MaxCooldown: 3,
+      }),
+    ];
+
+    const enemyCards = [
+      createTestCard('e1', 'enemy', { hp: 200, maxHp: 200, def: 50, spd: 10 }),
+    ];
+
+    engine.loadFormation(playerCards, enemyCards);
+    const result = engine.runBattle();
+
+    // 应该能赢
+    expect(result.winner).toBe('player');
+  });
+
+  it('should handle empty formation gracefully', () => {
+    const engine = new BattleEngine('test-006', 12345, 67890);
+
+    // 空阵容
+    engine.loadFormation([], []);
+
+    // 应该直接判平局或特殊处理
+    const result = engine.runBattle();
+    expect(result.winner).toBeDefined();
+  });
+});
+
+describe('Damage Calculation Edge Cases', () => {
+  it('should handle zero defense', () => {
+    const rng = new DeterministicRandom(42);
+    const calc = new DamageCalc(rng);
+
+    const result = calc.calculate({
+      attackerAtk: 500,
+      attackerMatk: 100,
+      attackerElement: 'fire',
+      attackerCritRate: 0,
+      attackerCritDmg: 1.5,
+      defenderDef: 0,
+      defenderMdef: 0,
+      defenderElement: 'ice',
+      skillMultiplier: 1.0,
+      damageType: 'physical',
+      defCurveK: 500,
+    });
+
+    expect(result.dmgReduction).toBe(0);
+    expect(result.finalDamage).toBeGreaterThan(400);
+  });
+
+  it('should handle very high defense', () => {
+    const rng = new DeterministicRandom(42);
+    const calc = new DamageCalc(rng);
+
+    const result = calc.calculate({
+      attackerAtk: 100,
+      attackerMatk: 100,
+      attackerElement: 'fire',
+      attackerCritRate: 0,
+      attackerCritDmg: 1.5,
+      defenderDef: 10000,
+      defenderMdef: 10000,
+      defenderElement: 'ice',
+      skillMultiplier: 1.0,
+      damageType: 'physical',
+      defCurveK: 500,
+    });
+
+    // 高防御应有高减伤
+    expect(result.dmgReduction).toBeGreaterThan(0.9);
+    expect(result.finalDamage).toBeGreaterThan(0);
+    expect(result.finalDamage).toBeLessThan(20);
+  });
+
+  it('should handle critical hit', () => {
+    const rng = new DeterministicRandom(42);
+    const calc = new DamageCalc(rng);
+
+    // 100% 暴击率
+    const result = calc.calculate({
+      attackerAtk: 500,
+      attackerMatk: 100,
+      attackerElement: 'fire',
+      attackerCritRate: 1.0,
+      attackerCritDmg: 2.0,
+      defenderDef: 100,
+      defenderMdef: 100,
+      defenderElement: 'ice',
+      skillMultiplier: 1.0,
+      damageType: 'physical',
+      defCurveK: 500,
+    });
+
+    expect(result.isCrit).toBe(true);
+    // 暴击伤害应为普通伤害的 2 倍
+    expect(result.finalDamage).toBeGreaterThan(600);
+  });
+
+  it('should handle disadvantage element', () => {
+    const rng = new DeterministicRandom(42);
+    const calc = new DamageCalc(rng);
+
+    // 火元素攻击水元素：火被水克，-15% 伤害
+    const result = calc.calculate({
+      attackerAtk: 500,
+      attackerMatk: 100,
+      attackerElement: 'fire',
+      attackerCritRate: 0,
+      attackerCritDmg: 1.5,
+      defenderDef: 100,
+      defenderMdef: 100,
+      defenderElement: 'water',
+      skillMultiplier: 1.0,
+      damageType: 'physical',
+      defCurveK: 500,
+    });
+
+    expect(result.elemBonus).toBe(-0.15);
+  });
 });
